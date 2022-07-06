@@ -47,6 +47,9 @@ class HomeFragment : Fragment() {
         binding.menuImageView.setOnClickListener { v ->
             showMenu(v, R.menu.menu)
         }
+        binding.addNewProduct.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_productDetailsFragment)
+        }
     }
     private fun showMenu(v: View, @MenuRes menuRes: Int) {
         val popup = PopupMenu(requireContext(), v)
