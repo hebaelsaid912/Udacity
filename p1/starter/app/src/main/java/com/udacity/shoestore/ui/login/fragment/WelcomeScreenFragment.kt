@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
@@ -31,7 +32,9 @@ class WelcomeScreenFragment : Fragment() {
            var pass = arguments?.get(getString(R.string.password))
             Log.d(TAG, "onViewCreated: email: $email")
             Log.d(TAG, "onViewCreated: password: $pass")
-            findNavController().navigate(R.id.action_welcomeScreenFragment_to_instructionScreenFragment)
+            findNavController().navigate(R.id.action_welcomeScreenFragment_to_instructionScreenFragment,
+                bundleOf(getString(R.string.email) to email , getString(R.string.password) to pass)
+            )
         }
     }
 
