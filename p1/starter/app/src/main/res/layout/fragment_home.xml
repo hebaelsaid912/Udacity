@@ -18,16 +18,26 @@
 
         <TextView
             android:id="@+id/products_label"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:text="@string/our_products"
             android:textSize="20sp"
             android:textColor="@color/colorPrimaryDark"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/menu_image_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_menu"
+                android:layout_marginEnd="20dp"
+                android:padding="5dp"
+                app:layout_constraintBottom_toBottomOf="@+id/products_label"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/products_label" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/items_recycler_view"
