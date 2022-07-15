@@ -71,6 +71,9 @@
         android:label="ProductDetailsFragment" >
         <action
             android:id="@+id/action_productDetailsFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment" >
+            <argument
+                android:name="new_shoe"/>
+        </action>
     </fragment>
 </navigation>

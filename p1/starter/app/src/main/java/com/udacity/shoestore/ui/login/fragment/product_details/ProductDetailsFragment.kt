@@ -6,20 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.udacity.shoestore.databinding.FragmentProductDetailsBinding
 
 class ProductDetailsFragment : Fragment() {
     private lateinit var binding: FragmentProductDetailsBinding
-    private val viewModel: ProductDetailsViewModel by lazy {
+    /*private val viewModel: ProductDetailsViewModel by lazy {
         ViewModelProvider(this)[ProductDetailsViewModel::class.java]
-    }
+    }*/
+    private lateinit var viewModel: ProductDetailsViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentProductDetailsBinding.inflate(inflater, container, false)
+        viewModel= ProductDetailsViewModel(requireActivity())
         binding.productDetailsViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root

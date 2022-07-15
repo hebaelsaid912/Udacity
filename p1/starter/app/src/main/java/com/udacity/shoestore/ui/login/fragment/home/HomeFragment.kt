@@ -38,6 +38,14 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if(arguments?.get("new_shoe") != null) {
+            var shoe = arguments?.get("new_shoe") as Shoe
+            Log.d(TAG, "onViewCreated: shoe name: ${shoe.name}")
+            Log.d(TAG, "onViewCreated: shoe company: ${shoe.company}")
+            Log.d(TAG, "onViewCreated: shoe size: ${shoe.size}")
+            Log.d(TAG, "onViewCreated: shoe desc: ${shoe.description}")
+            viewModel.itemsList.value?.add(shoe)
+        }
         viewModel.itemsList.observe(viewLifecycleOwner, Observer { value ->
             setListView(value)
         })
