@@ -14,4 +14,9 @@
     <string name="new_login">new login</string>
     <string name="our_products">Our Products</string>
     <string name="logout">Logout</string>
+    <string name="product_name">Product Name</string>
+    <string name="company_name">Company Name</string>
+    <string name="product_size">Product Size</string>
+    <string name="product_description">Product Description</string>
+    <string name="add_product">Add Product</string>
 </resources>

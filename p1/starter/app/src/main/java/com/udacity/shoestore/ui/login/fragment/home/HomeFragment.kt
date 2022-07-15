@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.MenuRes
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -21,7 +22,6 @@ private const val TAG = "HomeFragment"
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
-    private var itemsList = ArrayList<Shoe>()
     private lateinit var adapter: ListItemAdapter
     private val viewModel: HomeViewModel by lazy {
         ViewModelProvider(this)[HomeViewModel::class.java]
@@ -31,13 +31,16 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+        binding.homeViewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        itemsList = viewModel.getProductsList()
-        setListView()
+        viewModel.itemsList.observe(viewLifecycleOwner, Observer { value ->
+            setListView(value)
+        })
         activity?.onBackPressedDispatcher?.addCallback(object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 activity?.finish()
@@ -70,8 +73,8 @@ class HomeFragment : Fragment() {
         popup.show()
     }
     @SuppressLint("NotifyDataSetChanged")
-    private fun setListView(){
-        Log.d(TAG, "setListView: ")
+    private fun setListView(itemsList:ArrayList<Shoe>){
+        Log.d(TAG, "setListView: size: ${itemsList.size}")
         adapter = ListItemAdapter(itemsList)
         binding.itemsRecyclerView.layoutManager = GridLayoutManager(requireContext(),2)
         binding.itemsRecyclerView.adapter = adapter
