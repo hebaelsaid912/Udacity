@@ -11,10 +11,14 @@
         android:label="loginFragment" >
         <action
             android:id="@+id/action_loginFragment_to_welcomeScreenFragment"
-            app:destination="@id/welcomeScreenFragment" />
+            app:destination="@id/welcomeScreenFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
         <action
             android:id="@+id/action_loginFragment_to_welcomeScreenFragment_with_args"
-            app:destination="@id/welcomeScreenFragment" >
+            app:destination="@id/welcomeScreenFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left">
             <argument
                 android:name="@string/email"
                 app:argType="string"/>
@@ -29,7 +33,9 @@
         android:label="WelcomeScreenFragment" >
         <action
             android:id="@+id/action_welcomeScreenFragment_to_instructionScreenFragment"
-            app:destination="@id/instructionScreenFragment" >
+            app:destination="@id/instructionScreenFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left">
             <argument
                 android:name="@string/email"
                 app:argType="string"/>
@@ -44,7 +50,9 @@
         android:label="InstructionScreenFragment" >
         <action
             android:id="@+id/action_instructionScreenFragment_to_homeFragment"
-            app:destination="@id/homeFragment" >
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left">
             <argument
                 android:name="@string/email"
                 app:argType="string"/>
@@ -60,10 +68,14 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_productDetailsFragment"
-            app:destination="@id/productDetailsFragment" />
+            app:destination="@id/productDetailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
         <action
             android:id="@+id/action_homeFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
     </fragment>
     <fragment
         android:id="@+id/productDetailsFragment"
@@ -71,7 +83,9 @@
         android:label="ProductDetailsFragment" >
         <action
             android:id="@+id/action_productDetailsFragment_to_homeFragment"
-            app:destination="@id/homeFragment" >
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left">
             <argument
                 android:name="new_shoe"/>
         </action>
