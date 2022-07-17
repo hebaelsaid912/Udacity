@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.core.widget.doOnTextChanged
+import androidx.navigation.fragment.findNavController
 import com.udacity.shoestore.databinding.FragmentProductDetailsBinding
 
 class ProductDetailsFragment : Fragment() {
@@ -39,6 +41,12 @@ class ProductDetailsFragment : Fragment() {
         binding.productDescriptionTextField.editText?.doOnTextChanged { text, start, before, count ->
             viewModel.productDescription.value = text.toString()
         }
+        activity?.onBackPressedDispatcher?.addCallback(object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+               findNavController().navigateUp()
+            }
+
+        })
     }
 
 }
