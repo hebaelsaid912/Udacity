@@ -10,6 +10,9 @@ import androidx.navigation.fragment.findNavController
 import com.udacity.shoestore.R
 import com.udacity.shoestore.databinding.FragmentLoginBinding
 
+/***
+ * animation reference " https://developer.android.com/guide/navigation/navigation-animate-transitions "
+ */
 class LoginFragment : Fragment() {
     private lateinit var binding : FragmentLoginBinding
 
