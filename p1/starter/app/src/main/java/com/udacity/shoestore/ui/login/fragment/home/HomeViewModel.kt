@@ -6,8 +6,32 @@ import com.udacity.shoestore.models.Shoe
 
 private const val TAG = "HomeViewModel"
 class HomeViewModel : ViewModel() {
+    private val _productName: MutableLiveData<String> by lazy {
+        MutableLiveData<String>()
+    }
+    private val _productCompanyName: MutableLiveData<String> by lazy {
+        MutableLiveData<String>()
+    }
+    private val _productSize: MutableLiveData<String> by lazy {
+        MutableLiveData<String>()
+    }
+    private val _productDescription: MutableLiveData<String> by lazy {
+        MutableLiveData<String>()
+    }
 
-     val itemsList : MutableLiveData<ArrayList<Shoe>> by lazy {
+    fun setProductName(productName: String) {
+        _productName.value = productName
+    }
+    fun setProductCompanyName(productCompanyName: String) {
+        _productCompanyName.value = productCompanyName
+    }
+    fun setProductDescription(productDescription: String) {
+        _productDescription.value = productDescription
+    }
+    fun setProductSize(productSize: String) {
+        _productSize.value = productSize
+    }
+    /* val itemsList : MutableLiveData<ArrayList<Shoe>> by lazy {
         MutableLiveData<ArrayList<Shoe>>()
     }
     private var shoeList = ArrayList<Shoe>()
@@ -70,5 +94,5 @@ class HomeViewModel : ViewModel() {
                     "https://m.media-amazon.com/images/I/81T7PHHH4FL._UY695_.jpg")
             )
         )
-    }
+    }*/
 }

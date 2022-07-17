@@ -14,6 +14,7 @@ import com.udacity.shoestore.models.Shoe
 private const val TAG = "ProductDetailsViewModel"
 
 class ProductDetailsViewModel(val activity: Activity) : ViewModel() {
+
     val productName: MutableLiveData<String> by lazy {
         MutableLiveData<String>()
     }
