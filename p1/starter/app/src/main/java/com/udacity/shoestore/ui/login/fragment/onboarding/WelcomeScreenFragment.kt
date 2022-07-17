@@ -1,4 +1,4 @@
-package com.udacity.shoestore.ui.login.fragment
+package com.udacity.shoestore.ui.login.fragment.onboarding
 
 import android.os.Bundle
 import android.util.Log
@@ -6,9 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
-import androidx.navigation.Navigation
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.udacity.shoestore.R
 import com.udacity.shoestore.databinding.FragmentWelcomeScreenBinding
@@ -36,6 +35,12 @@ class WelcomeScreenFragment : Fragment() {
                 bundleOf(getString(R.string.email) to email , getString(R.string.password) to pass)
             )
         }
+        activity?.onBackPressedDispatcher?.addCallback(object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().navigateUp()
+            }
+
+        })
     }
 
 }

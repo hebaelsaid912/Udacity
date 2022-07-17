@@ -12,9 +12,6 @@ import com.udacity.shoestore.databinding.FragmentProductDetailsBinding
 
 class ProductDetailsFragment : Fragment() {
     private lateinit var binding: FragmentProductDetailsBinding
-    /*private val viewModel: ProductDetailsViewModel by lazy {
-        ViewModelProvider(this)[ProductDetailsViewModel::class.java]
-    }*/
     private lateinit var viewModel: ProductDetailsViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
