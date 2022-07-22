@@ -16,18 +16,6 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
-        <action
-            android:id="@+id/action_loginFragment_to_welcomeScreenFragment_with_args"
-            app:destination="@id/welcomeScreenFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left">
-            <argument
-                android:name="@string/email"
-                app:argType="string"/>
-            <argument
-                android:name="@string/password"
-                app:argType="string"/>
-        </action>
     </fragment>
     <fragment
         android:id="@+id/welcomeScreenFragment"
@@ -39,14 +27,7 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right">
-            <argument
-                android:name="@string/email"
-                app:argType="string"/>
-            <argument
-                android:name="@string/password"
-                app:argType="string"/>
-        </action>
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/instructionScreenFragment"
@@ -58,14 +39,7 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right">
-            <argument
-                android:name="@string/email"
-                app:argType="string"/>
-            <argument
-                android:name="@string/password"
-                app:argType="string"/>
-        </action>
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/homeFragment"

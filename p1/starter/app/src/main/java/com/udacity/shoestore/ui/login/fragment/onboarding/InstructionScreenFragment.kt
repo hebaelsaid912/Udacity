@@ -14,6 +14,7 @@ import com.udacity.shoestore.R
 import com.udacity.shoestore.databinding.FragmentInstructionScreenBinding
 
 private const val TAG = "InstructionScreenFragment"
+
 class InstructionScreenFragment : Fragment() {
     private lateinit var binding: FragmentInstructionScreenBinding
 
@@ -29,13 +30,7 @@ class InstructionScreenFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.nextBtn.setOnClickListener {
-            var email =  arguments?.get(getString(R.string.email))
-            var pass = arguments?.get(getString(R.string.password))
-            Log.d(TAG, "onViewCreated: email: $email")
-            Log.d(TAG, "onViewCreated: password: $pass")
-           findNavController().navigate(R.id.action_instructionScreenFragment_to_homeFragment,
-               bundleOf(getString(R.string.email) to email , getString(R.string.password) to pass)
-           )
+            findNavController().navigate(InstructionScreenFragmentDirections.actionInstructionScreenFragmentToHomeFragment())
         }
         activity?.onBackPressedDispatcher?.addCallback(object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {

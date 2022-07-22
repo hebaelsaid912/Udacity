@@ -17,6 +17,7 @@ class ProductDetailsFragment : Fragment() {
     private val viewModel: HomeViewModel by lazy {
         ViewModelProvider(requireActivity())[HomeViewModel::class.java]
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,7 +45,7 @@ class ProductDetailsFragment : Fragment() {
         }
         activity?.onBackPressedDispatcher?.addCallback(object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-               findNavController().navigateUp()
+                findNavController().navigateUp()
             }
 
         })

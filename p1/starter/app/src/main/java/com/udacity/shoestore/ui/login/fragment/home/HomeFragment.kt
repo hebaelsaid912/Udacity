@@ -23,6 +23,7 @@ class HomeFragment : Fragment() {
     private val viewModel: HomeViewModel by lazy {
         ViewModelProvider(requireActivity())[HomeViewModel::class.java]
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,17 +50,18 @@ class HomeFragment : Fragment() {
             showMenu(v, R.menu.menu)
         }
         binding.addNewProduct.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_productDetailsFragment)
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToProductDetailsFragment())
         }
     }
+
     private fun showMenu(v: View, @MenuRes menuRes: Int) {
         val popup = PopupMenu(requireContext(), v)
         popup.menuInflater.inflate(menuRes, popup.menu)
 
         popup.setOnMenuItemClickListener { menuItem: MenuItem ->
-            when(menuItem.itemId){
+            when (menuItem.itemId) {
                 R.id.option_logout -> {
-                    findNavController().navigate(R.id.action_homeFragment_to_loginFragment)
+                    findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToLoginFragment())
                 }
             }
             return@setOnMenuItemClickListener true
@@ -70,22 +72,19 @@ class HomeFragment : Fragment() {
         // Show the popup menu.
         popup.show()
     }
-    private fun addView(shoe: Shoe){
+
+    private fun addView(shoe: Shoe) {
         Log.d(TAG, "addView: name: ${shoe.name}")
         Log.d(TAG, "addView: company: ${shoe.company}")
         Log.d(TAG, "addView: size: ${shoe.size}")
         Log.d(TAG, "addView: description: ${shoe.description}")
-       val inflater =
-           activity?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-       val rowView: View = inflater.inflate(R.layout.product_list_item, binding.mainLayout,false)
-        binding.mainLayout.addView(rowView,binding.mainLayout.childCount-1)
+        val inflater =
+            activity?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val rowView: View = inflater.inflate(R.layout.product_list_item, binding.mainLayout, false)
+        binding.mainLayout.addView(rowView, binding.mainLayout.childCount - 1)
         rowView.findViewById<TextView>(R.id.product_name_text_view).text = shoe.name
         rowView.findViewById<TextView>(R.id.product_company_name_text_view).text = shoe.company
         rowView.findViewById<TextView>(R.id.product_size_text_view).text = shoe.size.toString()
         rowView.findViewById<TextView>(R.id.product_description_text_view).text = shoe.description
-    }
-
-    override fun onResume() {
-        super.onResume()
     }
 }
