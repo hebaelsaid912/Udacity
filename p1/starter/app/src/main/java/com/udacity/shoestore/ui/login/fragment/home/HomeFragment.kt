@@ -1,6 +1,5 @@
 package com.udacity.shoestore.ui.login.fragment.home
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -10,32 +9,26 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.MenuRes
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import com.udacity.shoestore.R
 import com.udacity.shoestore.databinding.FragmentHomeBinding
-import com.udacity.shoestore.databinding.FragmentLoginBinding
-import com.udacity.shoestore.models.SharedViewModel
 import com.udacity.shoestore.models.Shoe
+import com.udacity.shoestore.ui.login.fragment.home.shared_viewModel.HomeViewModel
 
 private const val TAG = "HomeFragment"
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
-    //private lateinit var adapter: ListItemAdapter
     private val viewModel: HomeViewModel by lazy {
-        ViewModelProvider(this)[HomeViewModel::class.java]
-    }
-    private val sharedViewModel: SharedViewModel by lazy {
-        ViewModelProvider(this)[SharedViewModel::class.java]
+        ViewModelProvider(requireActivity())[HomeViewModel::class.java]
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
+        viewModel.activity = requireActivity()
         binding.homeViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
@@ -43,26 +36,10 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        sharedViewModel._productName.observe(viewLifecycleOwner) { name ->
-            Log.d(TAG, "onViewCreated: shoe name: $name")
-            viewModel.setProductName(name)
+        viewModel._newShoe.observe(requireActivity()) { newShoe ->
+            Log.d(TAG, "onViewCreated: ")
+            addView(newShoe)
         }
-        sharedViewModel._productCompanyName.observe(viewLifecycleOwner) { company ->
-            Log.d(TAG, "onViewCreated: shoe name: $company")
-            viewModel.setProductCompanyName(company)
-        }
-        sharedViewModel._productSize.observe(viewLifecycleOwner) { size ->
-            Log.d(TAG, "onViewCreated: shoe name: $size")
-            viewModel.setProductSize(size)
-        }
-        sharedViewModel._productDescription.observe(viewLifecycleOwner) { description ->
-            Log.d(TAG, "onViewCreated: shoe name: $description")
-            viewModel.setProductDescription(description)
-        }
-
-        /*viewModel.itemsList.observe(viewLifecycleOwner, Observer { value ->
-            setListView(value)
-        })*/
         activity?.onBackPressedDispatcher?.addCallback(object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 activity?.finish()
@@ -93,19 +70,22 @@ class HomeFragment : Fragment() {
         // Show the popup menu.
         popup.show()
     }
-   /* @SuppressLint("NotifyDataSetChanged")
-    private fun setListView(itemsList:ArrayList<Shoe>){
-        Log.d(TAG, "setListView: size: ${itemsList.size}")
-        adapter = ListItemAdapter(itemsList)
-        binding.itemsRecyclerView.layoutManager = GridLayoutManager(requireContext(),2)
-        binding.itemsRecyclerView.adapter = adapter
-        adapter.notifyDataSetChanged()
-    }*/
-    private fun addView(){
+    private fun addView(shoe: Shoe){
+        Log.d(TAG, "addView: name: ${shoe.name}")
+        Log.d(TAG, "addView: company: ${shoe.company}")
+        Log.d(TAG, "addView: size: ${shoe.size}")
+        Log.d(TAG, "addView: description: ${shoe.description}")
        val inflater =
            activity?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-       val rowView: View = inflater.inflate(R.layout.product_list_item, null)
-        binding.scrollView.addView(rowView,binding.scrollView.childCount-1)
+       val rowView: View = inflater.inflate(R.layout.product_list_item, binding.mainLayout,false)
+        binding.mainLayout.addView(rowView,binding.mainLayout.childCount-1)
+        rowView.findViewById<TextView>(R.id.product_name_text_view).text = shoe.name
+        rowView.findViewById<TextView>(R.id.product_company_name_text_view).text = shoe.company
+        rowView.findViewById<TextView>(R.id.product_size_text_view).text = shoe.size.toString()
+        rowView.findViewById<TextView>(R.id.product_description_text_view).text = shoe.description
+    }
 
+    override fun onResume() {
+        super.onResume()
     }
 }

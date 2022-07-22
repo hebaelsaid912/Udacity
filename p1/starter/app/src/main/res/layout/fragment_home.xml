@@ -7,18 +7,21 @@
 
         <variable
             name="homeViewModel"
-            type="com.udacity.shoestore.ui.login.fragment.home.HomeViewModel" />
+            type="com.udacity.shoestore.ui.login.fragment.home.shared_viewModel.HomeViewModel" />
     </data>
+    <!--
+            =>  use " ScrollView " to allow us scroll view when rotate the app
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+            =>  use " ConstraintLayout " to this layout because
+                the structure of this fragment is complex
+                and need to struct the component according to
+                each other
+        -->
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
         tools:context=".ui.login.fragment.HomeFragment">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/products_label"
@@ -42,21 +45,6 @@
                 app:layout_constraintBottom_toBottomOf="@+id/products_label"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/products_label" />
-
-            <!--<androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/items_recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_margin="10dp"
-                android:orientation="vertical"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/products_label"
-                app:spanCount="2"
-                tools:itemCount="5"
-                tools:listitem="@layout/product_list_item" />-->
             <ScrollView
                 android:id="@+id/scroll_view"
                 android:layout_width="match_parent"
@@ -68,12 +56,10 @@
                 <GridLayout
                     android:id="@+id/main_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp">
-                </GridLayout>
+                    android:layout_height="wrap_content"/>
 
             </ScrollView>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/add_new_product"
@@ -81,6 +67,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
             android:layout_margin="20dp"
-            android:src="@drawable/ic_add" />
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+            android:src="@drawable/ic_add"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

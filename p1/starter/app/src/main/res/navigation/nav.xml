@@ -89,7 +89,7 @@
     </fragment>
     <fragment
         android:id="@+id/productDetailsFragment"
-        android:name="com.udacity.shoestore.ui.login.fragment.product_details.ProductDetailsFragment"
+        android:name="com.udacity.shoestore.ui.login.fragment.home.ProductDetailsFragment"
         android:label="ProductDetailsFragment" >
         <action
             android:id="@+id/action_productDetailsFragment_to_homeFragment"
