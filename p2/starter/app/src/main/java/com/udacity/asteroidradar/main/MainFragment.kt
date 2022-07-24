@@ -50,7 +50,7 @@ class MainFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<PlanetaryApodModel>, t: Throwable) {
-                TODO("Not yet implemented")
+                Log.d(TAG, "onResponse: ${t.message}")
             }
 
         })
