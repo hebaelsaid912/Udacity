@@ -1,17 +1,13 @@
 package com.udacity.asteroidradar.main
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import com.squareup.picasso.Picasso
-import com.udacity.asteroidradar.Model.PlanetaryApodModel
 import com.udacity.asteroidradar.R
-import com.udacity.asteroidradar.api.NasaApi
 import com.udacity.asteroidradar.databinding.FragmentMainBinding
-import retrofit2.Call
-import retrofit2.Response
 
 
 private const val TAG = "MainFragment"
@@ -26,7 +22,7 @@ class MainFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         binding = FragmentMainBinding.inflate(inflater)
         binding.lifecycleOwner = this
-
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
         setHasOptionsMenu(true)
@@ -36,25 +32,11 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getPlanetaryApodImage()
+        viewModel._imageURL.observe(viewLifecycleOwner){ url ->
+            Picasso.with(context).load(url).into(binding.activityMainImageOfTheDay)
+        }
     }
-    private fun getPlanetaryApodImage() {
-        NasaApi.retrofitService.getPlanetaryApod().enqueue(object: retrofit2.Callback<PlanetaryApodModel> {
-            override fun onResponse(
-                call: Call<PlanetaryApodModel>,
-                response: Response<PlanetaryApodModel>
-            ) {
-                Log.d(TAG, "onResponse: ${response.isSuccessful}")
-                Log.d(TAG, "onResponse: ${response.body()?.date}")
-                Picasso.with(requireContext()).load(response.body()?.url).into(binding.activityMainImageOfTheDay)
-            }
 
-            override fun onFailure(call: Call<PlanetaryApodModel>, t: Throwable) {
-                Log.d(TAG, "onResponse: ${t.message}")
-            }
-
-        })
-    }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.main_overflow_menu, menu)
