@@ -36,9 +36,9 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getMarsRealEstateProperties()
+        getPlanetaryApodImage()
     }
-    private fun getMarsRealEstateProperties() {
+    private fun getPlanetaryApodImage() {
         NasaApi.retrofitService.getPlanetaryApod().enqueue(object: retrofit2.Callback<PlanetaryApodModel> {
             override fun onResponse(
                 call: Call<PlanetaryApodModel>,
