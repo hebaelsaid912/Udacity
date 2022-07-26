@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import com.squareup.picasso.Picasso
+import com.udacity.asteroidradar.Asteroid
 import com.udacity.asteroidradar.R
 import com.udacity.asteroidradar.databinding.FragmentMainBinding
 
@@ -35,6 +36,12 @@ class MainFragment : Fragment() {
         viewModel._imageURL.observe(viewLifecycleOwner){ url ->
             Picasso.with(context).load(url).into(binding.activityMainImageOfTheDay)
         }
+        viewModel._title.observe(viewLifecycleOwner){ title ->
+            binding.titleTv.text = title
+        }
+        viewModel._asteroid.observe(viewLifecycleOwner){ asteroidList ->
+            setAsteroidDataList(asteroidList)
+        }
     }
 
 
@@ -45,5 +52,8 @@ class MainFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return true
+    }
+    private fun setAsteroidDataList(asteroidList:ArrayList<Asteroid>){
+
     }
 }
