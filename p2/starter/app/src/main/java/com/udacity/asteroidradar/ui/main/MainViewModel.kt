@@ -1,12 +1,11 @@
-package com.udacity.asteroidradar.main
+package com.udacity.asteroidradar.ui.main
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.udacity.asteroidradar.Asteroid
+import com.udacity.asteroidradar.Model.Asteroid
 import com.udacity.asteroidradar.Model.PlanetaryApodModel
 import com.udacity.asteroidradar.api.NasaApi
-import com.udacity.asteroidradar.api.parseAsteroidsJsonResult
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Response
