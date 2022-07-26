@@ -3,9 +3,7 @@ package com.udacity.asteroidradar.main
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.squareup.moshi.JsonReader
 import com.udacity.asteroidradar.Asteroid
-import com.udacity.asteroidradar.Model.FeedsResponseModel
 import com.udacity.asteroidradar.Model.PlanetaryApodModel
 import com.udacity.asteroidradar.api.NasaApi
 import com.udacity.asteroidradar.api.parseAsteroidsJsonResult
@@ -65,7 +63,7 @@ class MainViewModel() : ViewModel() {
                 Log.d(TAG, "getFeedsByDate: onResponse: isSuccessful: ${response.isSuccessful}")
                 Log.d(TAG, "getFeedsByDate: onResponse: body: ${response.body()}")
                 val responseModel = JSONObject(response.body().toString())
-                _asteroid.value = parseAsteroidsJsonResult(responseModel)
+                //_asteroid.value = parseAsteroidsJsonResult(responseModel)
             }
             override fun onFailure(call: Call<Any>, t: Throwable) {
                 Log.d(TAG, "getFeedsByDate: onResponse: ${t.message}")

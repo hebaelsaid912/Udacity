@@ -2,7 +2,6 @@ package com.udacity.asteroidradar.Model
 
 import com.squareup.moshi.Json
 
-
 data class FeedsResponseModel(
     @Json(name = "element_count")
     val element_count: Int,
@@ -22,7 +21,6 @@ data class FeedsResponseModel(
 
     data class NearEarthObjects(
        // @Json(name = "2022-07-22")
-
         var data: Map<String,List<DateDetails>>
     ) {
         data class DateDetails(
