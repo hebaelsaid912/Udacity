@@ -1,4 +1,4 @@
-package com.udacity.asteroidradar.Model
+package com.udacity.asteroidradar.model
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

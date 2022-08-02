@@ -3,12 +3,12 @@ package com.udacity.asteroidradar.api
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.udacity.asteroidradar.Constants
-import com.udacity.asteroidradar.Model.FeedsResponseModel
-import com.udacity.asteroidradar.Model.PlanetaryApodModel
-import org.json.JSONObject
+import com.udacity.asteroidradar.model.PlanetaryApodModel
+import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -17,8 +17,9 @@ private val moshi = Moshi.Builder()
     .build()
 
 private val retrofit = Retrofit.Builder()
+    .addConverterFactory(ScalarsConverterFactory.create())
     .addConverterFactory(MoshiConverterFactory.create(moshi))
-    .baseUrl(Constants.BASE_URL)
+    .baseUrl(Constants.BASE_URL).client(OkHttpClient.Builder().build())
     .build()
 
 interface ClientApiService {
@@ -29,10 +30,10 @@ interface ClientApiService {
     ): Call<PlanetaryApodModel>
     @GET("neo/rest/v1/feed")
     fun getFeedByDate(
-        @Query("start_date") start_date : String? = null,
-        @Query("end_date") end_date: String? = null,
-        @Query("api_key") api_key: String? = Constants.api_key
-    ): Call<Any>
+        @Query("start_date") start_date : String,
+        @Query("end_date") end_date: String,
+        @Query("api_key") api_key: String
+    ): String
 
 }
 object NasaApi{

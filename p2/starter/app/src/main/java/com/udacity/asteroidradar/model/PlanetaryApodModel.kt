@@ -1,7 +1,6 @@
-package com.udacity.asteroidradar.Model
+package com.udacity.asteroidradar.model
 
 import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
 
 data class PlanetaryApodModel(
     @Json(name= "date")

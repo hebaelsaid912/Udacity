@@ -3,9 +3,13 @@ package com.udacity.asteroidradar.ui.main
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.udacity.asteroidradar.Model.Asteroid
-import com.udacity.asteroidradar.Model.PlanetaryApodModel
+import androidx.lifecycle.viewModelScope
+import com.udacity.asteroidradar.Constants
+import com.udacity.asteroidradar.model.Asteroid
+import com.udacity.asteroidradar.model.PlanetaryApodModel
 import com.udacity.asteroidradar.api.NasaApi
+import com.udacity.asteroidradar.api.parseAsteroidsJsonResult
+import kotlinx.coroutines.launch
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Response
@@ -54,21 +58,24 @@ class MainViewModel() : ViewModel() {
         var end = getEndDate()*/
         var start = "2022-07-20"
         var end = "2022-07-26"
-        NasaApi.retrofitService.getFeedByDate(start,end).enqueue(object: retrofit2.Callback<Any> {
-            override fun onResponse(
-                call: Call<Any>,
-                response: Response<Any>
-            ) {
-                Log.d(TAG, "getFeedsByDate: onResponse: isSuccessful: ${response.isSuccessful}")
-                Log.d(TAG, "getFeedsByDate: onResponse: body: ${response.body()}")
-                val responseModel = JSONObject(response.body().toString())
-                //_asteroid.value = parseAsteroidsJsonResult(responseModel)
-            }
-            override fun onFailure(call: Call<Any>, t: Throwable) {
-                Log.d(TAG, "getFeedsByDate: onResponse: ${t.message}")
+        viewModelScope.launch {
+            try {
+               var list =  parseAsteroidsJsonResult(
+                    JSONObject(
+                        NasaApi.retrofitService.getFeedByDate(
+                            start,
+                            end,
+                            Constants.api_key
+                        )
+                    )
+                )
+                Log.d(TAG, "getFeedsByDate: list size ${list.size}")
+            }catch (e :Exception){
+                e.printStackTrace()
+               // Log.d(TAG, "getFeedsByDate: e")
             }
 
-        })
+        }
     }
     fun getStartDate():String{
         var date = Calendar.DATE
