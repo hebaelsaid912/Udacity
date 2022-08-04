@@ -48,7 +48,7 @@ class MainAsteroidAdapter(var listener: ListenerGoToDetails) :
     override fun onBindViewHolder(holder: MainAsteroidViewHolder, position: Int) {
         holder.bind(mlist[position])
         holder.itemView.setOnClickListener {
-            listener.onClick(position)
+            listener.onClick(mlist[position])
         }
     }
 
@@ -64,5 +64,5 @@ class MainAsteroidAdapter(var listener: ListenerGoToDetails) :
 
 
 interface ListenerGoToDetails {
-    fun onClick(position: Int)
+    fun onClick(asteroidItem: Asteroid)
 }
