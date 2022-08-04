@@ -47,6 +47,9 @@ class MainAsteroidAdapter(var listener: ListenerGoToDetails) :
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MainAsteroidViewHolder, position: Int) {
         holder.bind(mlist[position])
+        holder.itemView.setOnClickListener {
+            listener.onClick(position)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -61,6 +64,5 @@ class MainAsteroidAdapter(var listener: ListenerGoToDetails) :
 
 
 interface ListenerGoToDetails {
-    fun onClickedOnLike(position: Int, product_id: Int, likeBtn: ImageView)
-    fun onClickToIntent(position: Int, product_id: Int)
+    fun onClick(position: Int)
 }

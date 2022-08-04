@@ -57,9 +57,6 @@ class MainFragment : Fragment(), ListenerGoToDetails{
         return true
     }
     private fun setAsteroidDataList(asteroidList:ArrayList<Asteroid>){
-        for(i in asteroidList){
-            Log.d(TAG, "setAsteroidDataList: date: ${i.closeApproachDate}")
-        }
         var adapter = MainAsteroidAdapter(this)
         adapter.setList(requireContext(),asteroidList)
         binding.asteroidRecycler.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
@@ -67,11 +64,7 @@ class MainFragment : Fragment(), ListenerGoToDetails{
         adapter.notifyDataSetChanged()
     }
 
-    override fun onClickedOnLike(position: Int, product_id: Int, likeBtn: ImageView) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onClickToIntent(position: Int, product_id: Int) {
+    override fun onClick(position: Int) {
         TODO("Not yet implemented")
     }
 }
