@@ -2,10 +2,9 @@ package com.udacity.asteroidradar.api
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import com.udacity.asteroidradar.Constants
-import com.udacity.asteroidradar.model.PlanetaryApodModel
+import com.udacity.asteroidradar.common.Constants
+import com.udacity.asteroidradar.model.remote.PlanetaryApodModel
 import okhttp3.OkHttpClient
-import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
@@ -25,11 +24,11 @@ private val retrofit = Retrofit.Builder()
 interface ClientApiService {
 
     @GET("planetary/apod")
-    fun getPlanetaryApod(
+    suspend fun getPlanetaryApod(
         @Query("api_key") api_key: String? = Constants.api_key
-    ): Call<PlanetaryApodModel>
+    ): PlanetaryApodModel
     @GET("neo/rest/v1/feed")
-    fun getFeedByDate(
+    suspend fun getFeedByDate(
         @Query("start_date") start_date : String,
         @Query("end_date") end_date: String,
         @Query("api_key") api_key: String

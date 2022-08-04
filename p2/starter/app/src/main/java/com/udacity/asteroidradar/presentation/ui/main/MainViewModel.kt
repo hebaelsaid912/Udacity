@@ -1,18 +1,16 @@
-package com.udacity.asteroidradar.ui.main
+package com.udacity.asteroidradar.presentation.ui.main
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.udacity.asteroidradar.Constants
-import com.udacity.asteroidradar.model.Asteroid
-import com.udacity.asteroidradar.model.PlanetaryApodModel
+import com.udacity.asteroidradar.common.Constants
+import com.udacity.asteroidradar.model.data.Asteroid
 import com.udacity.asteroidradar.api.NasaApi
 import com.udacity.asteroidradar.api.parseAsteroidsJsonResult
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.json.JSONObject
-import retrofit2.Call
-import retrofit2.Response
 import java.util.*
 
 
@@ -36,30 +34,24 @@ class MainViewModel() : ViewModel() {
     }
 
     private fun getPlanetaryApodImage() {
-        NasaApi.retrofitService.getPlanetaryApod().enqueue(object: retrofit2.Callback<PlanetaryApodModel> {
-            override fun onResponse(
-                call: Call<PlanetaryApodModel>,
-                response: Response<PlanetaryApodModel>
-            ) {
-                Log.d(TAG, "getPlanetaryApodImage: onResponse: ${response.isSuccessful}")
-                Log.d(TAG, "getPlanetaryApodImage: onResponse: ${response.body()?.date}")
-                _imageURL.value = response.body()?.url
-                _title.value = response.body()?.title
-            }
-
-            override fun onFailure(call: Call<PlanetaryApodModel>, t: Throwable) {
-                Log.d(TAG, "getPlanetaryApodImage: onResponse: ${t.message}")
-            }
-
-        })
+        viewModelScope.launch(Dispatchers.IO) {
+            var response = NasaApi.retrofitService.getPlanetaryApod()
+            _imageURL.postValue(response.url)
+            _title.postValue(response.title)
+        }
     }
     private fun getFeedsByDate() {
         /*var start = getStartDate()
         var end = getEndDate()*/
-        var start = "2022-07-20"
-        var end = "2022-07-26"
-        viewModelScope.launch {
-            try {
+        var start = "2022-08-05"
+        var end = "2022-08-09"
+        viewModelScope.launch(Dispatchers.IO) {
+            var result = NasaApi.retrofitService.getFeedByDate(
+                start,
+                end,
+                Constants.api_key
+            )
+            Log.d(TAG, "getFeedsByDate: result = $result")
                var list =  parseAsteroidsJsonResult(
                     JSONObject(
                         NasaApi.retrofitService.getFeedByDate(
@@ -69,11 +61,8 @@ class MainViewModel() : ViewModel() {
                         )
                     )
                 )
+                _asteroid.postValue(list)
                 Log.d(TAG, "getFeedsByDate: list size ${list.size}")
-            }catch (e :Exception){
-                e.printStackTrace()
-               // Log.d(TAG, "getFeedsByDate: e")
-            }
 
         }
     }

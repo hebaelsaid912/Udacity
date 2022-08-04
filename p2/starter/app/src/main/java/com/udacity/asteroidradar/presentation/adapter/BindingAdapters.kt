@@ -1,8 +1,10 @@
-package com.udacity.asteroidradar
+package com.udacity.asteroidradar.presentation.adapter
 
+import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import com.udacity.asteroidradar.R
 
 @BindingAdapter("statusIcon")
 fun bindAsteroidStatusImage(imageView: ImageView, isHazardous: Boolean) {
@@ -11,6 +13,16 @@ fun bindAsteroidStatusImage(imageView: ImageView, isHazardous: Boolean) {
     } else {
         imageView.setImageResource(R.drawable.ic_status_normal)
     }
+}
+@BindingAdapter("codeName")
+fun bindAsteroidCodeName(textView: TextView, codename: String?) {
+    Log.d("BindingAdapter", "bindAsteroidCodeName: codeName: $codename")
+    textView.text = codename
+}
+@BindingAdapter("asteroidDate")
+fun bindAsteroidDateText(textView: TextView, date: String?) {
+    Log.d("BindingAdapter", "bindAsteroidCodeName: date: $date")
+    textView.text = date
 }
 
 @BindingAdapter("asteroidStatusImage")

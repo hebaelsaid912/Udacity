@@ -1,18 +1,21 @@
-package com.udacity.asteroidradar.ui.main
+package com.udacity.asteroidradar.presentation.ui.main
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.squareup.picasso.Picasso
-import com.udacity.asteroidradar.model.Asteroid
+import com.udacity.asteroidradar.model.data.Asteroid
 import com.udacity.asteroidradar.R
 import com.udacity.asteroidradar.databinding.FragmentMainBinding
 
 
 private const val TAG = "MainFragment"
-class MainFragment : Fragment() {
+class MainFragment : Fragment(), ListenerGoToDetails{
 
     private val viewModel: MainViewModel by lazy {
         ViewModelProvider(this).get(MainViewModel::class.java)
@@ -54,6 +57,21 @@ class MainFragment : Fragment() {
         return true
     }
     private fun setAsteroidDataList(asteroidList:ArrayList<Asteroid>){
+        for(i in asteroidList){
+            Log.d(TAG, "setAsteroidDataList: date: ${i.closeApproachDate}")
+        }
+        var adapter = MainAsteroidAdapter(this)
+        adapter.setList(requireContext(),asteroidList)
+        binding.asteroidRecycler.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)
+        binding.asteroidRecycler.adapter = adapter
+        adapter.notifyDataSetChanged()
+    }
 
+    override fun onClickedOnLike(position: Int, product_id: Int, likeBtn: ImageView) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onClickToIntent(position: Int, product_id: Int) {
+        TODO("Not yet implemented")
     }
 }
