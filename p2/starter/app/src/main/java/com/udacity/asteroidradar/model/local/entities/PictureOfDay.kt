@@ -7,8 +7,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "picture_of_day")
 data class PictureOfDay(
-    @PrimaryKey(autoGenerate = true)
-    val id: Long,
+    @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "media_type")
     val mediaType: String,
     @ColumnInfo(name = "title")

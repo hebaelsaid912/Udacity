@@ -10,19 +10,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.udacity.asteroidradar.R
 import com.udacity.asteroidradar.model.data.Asteroid
 import com.udacity.asteroidradar.databinding.MainAsteroidItemListBinding
+import com.udacity.asteroidradar.model.local.entities.AsteroidModel
 
 class MainAsteroidAdapter(var listener: ListenerGoToDetails) :
     RecyclerView.Adapter<MainAsteroidAdapter.MainAsteroidViewHolder>() {
-    private lateinit var binding:MainAsteroidItemListBinding
-    private var mlist = ArrayList<Asteroid>()
+    private lateinit var binding: MainAsteroidItemListBinding
+    private var mlist = ArrayList<AsteroidModel>()
     lateinit var context: Context
 
-    class MainAsteroidViewHolder(itemView: MainAsteroidItemListBinding) : RecyclerView.ViewHolder(itemView.root) {
+    class MainAsteroidViewHolder(itemView: MainAsteroidItemListBinding) :
+        RecyclerView.ViewHolder(itemView.root) {
         var name: TextView = itemView.asteroidNum
         var date: TextView = itemView.asteroidDate
         var status: ImageView = itemView.asteroidImg
 
-        fun bind(asteroidItem: Asteroid) {
+        fun bind(asteroidItem: AsteroidModel) {
             name.text = asteroidItem.codename
             date.text = asteroidItem.closeApproachDate
             if (asteroidItem.isPotentiallyHazardous) {
@@ -31,6 +33,7 @@ class MainAsteroidAdapter(var listener: ListenerGoToDetails) :
                 status.setImageResource(R.drawable.ic_status_normal)
             }
         }
+
         companion object {
             fun from(parent: ViewGroup): MainAsteroidViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
@@ -48,7 +51,19 @@ class MainAsteroidAdapter(var listener: ListenerGoToDetails) :
     override fun onBindViewHolder(holder: MainAsteroidViewHolder, position: Int) {
         holder.bind(mlist[position])
         holder.itemView.setOnClickListener {
-            listener.onClick(mlist[position])
+            listener.onClick(
+                Asteroid(
+                    id = mlist[position].id,
+                    relativeVelocity = mlist[position].relativeVelocity,
+                    isPotentiallyHazardous = mlist[position].isPotentiallyHazardous,
+                    estimatedDiameter = mlist[position].estimatedDiameter,
+                    distanceFromEarth = mlist[position].distanceFromEarth,
+                    codename = mlist[position].codename,
+                    closeApproachDate = mlist[position].closeApproachDate,
+                    absoluteMagnitude = mlist[position].absoluteMagnitude
+
+                )
+            )
         }
     }
 
@@ -56,7 +71,7 @@ class MainAsteroidAdapter(var listener: ListenerGoToDetails) :
         return mlist.size
     }
 
-    fun setList(context: Context, mlist: ArrayList<Asteroid>) {
+    fun setList(context: Context, mlist: ArrayList<AsteroidModel>) {
         this.mlist = mlist
         this.context = context
     }

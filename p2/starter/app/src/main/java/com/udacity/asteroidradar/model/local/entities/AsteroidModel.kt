@@ -6,8 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "asteroid")
 data class AsteroidModel(
-    @PrimaryKey(autoGenerate = true)
-    val _id: Long,
+    @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "asteroid_id")
     val id: Long,
     @ColumnInfo(name = "code_name")
