@@ -48,7 +48,10 @@ class MainFragment : Fragment(), ListenerGoToDetails{
             viewModel.getAllAsteroidFromDB(requireContext())
         }
         viewModel._imageURL.observe(viewLifecycleOwner){ url ->
-            Picasso.with(context).load(url).into(binding.activityMainImageOfTheDay)
+            Picasso.with(context)
+                .load(url)
+                .placeholder(R.drawable.placeholder_picture_of_day)
+                .error(R.drawable.placeholder_picture_of_day).into(binding.activityMainImageOfTheDay);
         }
         viewModel._title.observe(viewLifecycleOwner){ title ->
             binding.titleTv.text = title
