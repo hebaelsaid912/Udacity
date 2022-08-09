@@ -34,4 +34,7 @@ class AsteroidRepositoryImp{
     suspend fun getAsteroidDB(context: Context):List<AsteroidModel>{
         return AsteroidDataBase.getDatabase(context).asteroidDao().getAllAsteroid
     }
+    suspend fun getTodayAsteroidDB(context: Context,currentDate:String):List<AsteroidModel>{
+        return AsteroidDataBase.getDatabase(context).asteroidDao().getTodayAsteroid(currentDate)
+    }
 }

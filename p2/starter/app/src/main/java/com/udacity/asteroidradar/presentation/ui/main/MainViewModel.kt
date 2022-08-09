@@ -107,6 +107,14 @@ class MainViewModel() : ViewModel() {
             )
         }
     }
+    fun getTodayAsteroidFromDB(context: Context){
+        viewModelScope.launch (Dispatchers.IO){
+           val list =  myRepositoryImp.getTodayAsteroidDB(context = context, currentDate = getCurrentDate())
+            _asteroid.postValue(
+                list as ArrayList<AsteroidModel>
+            )
+        }
+    }
     @SuppressLint("SimpleDateFormat")
     private fun getCurrentDate():String{
         val sdf = SimpleDateFormat("yyyy-MM-dd")

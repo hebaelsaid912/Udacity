@@ -65,6 +65,18 @@ class MainFragment : Fragment(), ListenerGoToDetails{
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        Log.d(TAG, "onOptionsItemSelected: selected item: ${item.itemId}")
+        when(item.itemId){
+            R.id.show_all_menu -> {
+                viewModel.getAllAsteroidFromDB(requireContext())
+            }
+            R.id.show_buy_menu -> {
+                viewModel.getAllAsteroidFromDB(requireContext())
+            }
+            R.id.show_rent_menu -> {
+                viewModel.getTodayAsteroidFromDB(requireContext())
+            }
+        }
         return true
     }
     private fun setAsteroidDataList(asteroidList:ArrayList<AsteroidModel>){

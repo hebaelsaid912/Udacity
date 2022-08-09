@@ -20,4 +20,8 @@ interface AsteroidDAO {
     fun insertAsteroid(asteroidModel: AsteroidModel)
     @get:Query("SELECT * FROM asteroid")
     val getAllAsteroid:List<AsteroidModel>
+    @Query("SELECT * FROM asteroid WHERE close_approachDate= :current_date")
+    fun getTodayAsteroid(
+            current_date:String
+    ):List<AsteroidModel>
 }
