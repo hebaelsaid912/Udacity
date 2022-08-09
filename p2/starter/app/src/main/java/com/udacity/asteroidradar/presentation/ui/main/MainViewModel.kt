@@ -1,11 +1,12 @@
 package com.udacity.asteroidradar.presentation.ui.main
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.udacity.asteroidradar.api.parseAsteroidsJsonResult
-import com.udacity.asteroidradar.model.data.Asteroid
 import com.udacity.asteroidradar.model.local.entities.AsteroidModel
 import com.udacity.asteroidradar.model.local.entities.PictureOfDay
 import com.udacity.asteroidradar.model.repository.AsteroidRepositoryImp
@@ -13,6 +14,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.json.JSONObject
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 private const val TAG = "MainViewModel"
@@ -63,12 +66,14 @@ class MainViewModel() : ViewModel() {
     }
 
      fun getFeedsByDate(context: Context) {
+         Log.d(TAG, "getFeedsByDate: current date: ${getCurrentDate()}")
+         Log.d(TAG, "getFeedsByDate: after 7 days from current date: ${getCalculatedDate(7)}")
         viewModelScope.launch(Dispatchers.IO) {
             val list = parseAsteroidsJsonResult(
                 JSONObject(
                     myRepositoryImp.getFeedByDate(
-                        "2022-08-05",
-                        "2022-08-09"
+                        getCurrentDate(),
+                        getCalculatedDate(7)!!
                     )
                 )
             )
@@ -101,5 +106,17 @@ class MainViewModel() : ViewModel() {
                 list as ArrayList<AsteroidModel>
             )
         }
+    }
+    @SuppressLint("SimpleDateFormat")
+    private fun getCurrentDate():String{
+        val sdf = SimpleDateFormat("yyyy-MM-dd")
+        return sdf.format(Date())
+    }
+    @SuppressLint("SimpleDateFormat")
+    private fun getCalculatedDate(days: Int): String? {
+        val cal = Calendar.getInstance()
+        val s = SimpleDateFormat("yyyy-MM-dd")
+        cal.add(Calendar.DAY_OF_YEAR, days)
+        return s.format(Date(cal.timeInMillis))
     }
 }
