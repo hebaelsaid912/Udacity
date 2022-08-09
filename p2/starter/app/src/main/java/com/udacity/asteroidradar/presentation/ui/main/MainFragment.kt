@@ -51,7 +51,8 @@ class MainFragment : Fragment(), ListenerGoToDetails{
             Picasso.with(context)
                 .load(url)
                 .placeholder(R.drawable.placeholder_picture_of_day)
-                .error(R.drawable.placeholder_picture_of_day).into(binding.activityMainImageOfTheDay);
+                .error(R.drawable.placeholder_picture_of_day).into(binding.activityMainImageOfTheDay)
+
         }
         viewModel._title.observe(viewLifecycleOwner){ title ->
             binding.titleTv.text = title
