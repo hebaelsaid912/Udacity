@@ -13,19 +13,33 @@ fun bindAsteroidStatusImage(imageView: ImageView, isHazardous: Boolean) {
         imageView.setImageResource(R.drawable.ic_status_normal)
     }
 }
+
 @BindingAdapter("asteroidImageContentDescription")
 fun bindPotentiallyHazardousImageContentDescription(imageView: ImageView, isHazardous: Boolean) {
     if (isHazardous) {
-        imageView.contentDescription = imageView.context.getString(R.string.potentially_hazardous_asteroid_image)
+        imageView.contentDescription =
+            imageView.context.getString(R.string.potentially_hazardous_asteroid_image)
     } else {
-        imageView.contentDescription = imageView.context.getString(R.string.not_hazardous_asteroid_image)
+        imageView.contentDescription =
+            imageView.context.getString(R.string.not_hazardous_asteroid_image)
     }
 
 }
-@BindingAdapter("asteroidImageOfTheDayContentDescription")
-fun bindImageOfTheDayContentDescription(imageView: ImageView,string: Boolean) {
-        imageView.contentDescription = imageView.context.getString(R.string.image_of_the_day)
 
+@BindingAdapter("asteroidImageOfTheDayContentDescription")
+fun bindImageOfTheDayContentDescription(imageView: ImageView, imageTitle: String?) {
+    imageView.contentDescription =
+        imageView.context.getString(R.string.nasa_picture_of_day_content_description_format) + imageTitle
+}
+
+@BindingAdapter("asteroidImageIsHazardousContentDescription")
+fun bindImageIsHazardousContentDescription(imageView: ImageView, string: Boolean) {
+    imageView.contentDescription = imageView.context.getString(R.string.is_hazardous_img_desc)
+}
+
+@BindingAdapter("asteroidImageHelperContentDescription")
+fun bindImageHelperContentDescription(imageView: ImageView, string: Boolean) {
+    imageView.contentDescription = imageView.context.getString(R.string.helper_img_desc)
 }
 
 @BindingAdapter("asteroidStatusImage")

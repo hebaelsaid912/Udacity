@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <variable
+            name="asteroid"
+            type="com.udacity.asteroidradar.model.local.entities.AsteroidModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -39,6 +42,7 @@
             android:layout_height="wrap_content"
             tools:src="@drawable/ic_status_normal"
             android:textColor="@color/default_text_color"
+            app:asteroidImageIsHazardousContentDescription="@{asteroid.potentiallyHazardous}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/asteroid_num" />

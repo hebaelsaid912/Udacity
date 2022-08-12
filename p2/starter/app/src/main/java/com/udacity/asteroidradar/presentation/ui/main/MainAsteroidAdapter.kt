@@ -44,12 +44,15 @@ class MainAsteroidAdapter(var listener: ListenerGoToDetails) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainAsteroidViewHolder {
+        val layoutInflater = LayoutInflater.from(parent.context)
+        binding = MainAsteroidItemListBinding.inflate(layoutInflater, parent, false)
         return MainAsteroidViewHolder.from(parent)
     }
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MainAsteroidViewHolder, position: Int) {
         holder.bind(mlist[position])
+        binding.asteroid = mlist[position]
         holder.itemView.setOnClickListener {
             listener.onClick(
                 Asteroid(
