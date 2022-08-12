@@ -58,7 +58,12 @@ class MainFragment : Fragment(), ListenerGoToDetails{
             binding.titleTv.text = title
         }
         viewModel._asteroid.observe(viewLifecycleOwner){ asteroidList ->
-            setAsteroidDataList(asteroidList)
+            if(asteroidList.isEmpty()){
+                binding.emptyAsteroidList.visibility = View.VISIBLE
+            }else{
+                setAsteroidDataList(asteroidList)
+            }
+
         }
     }
 

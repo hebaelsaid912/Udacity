@@ -23,11 +23,11 @@ private const val TAG = "MainViewModel"
 class MainViewModel() : ViewModel() {
     private var myRepositoryImp: AsteroidRepositoryImp = AsteroidRepositoryImp().getInstance()
     //image of the day
-    val _imageURL: MutableLiveData<String> by lazy {
-        MutableLiveData<String>()
+    val _imageURL: MutableLiveData<String?> by lazy {
+        MutableLiveData<String?>()
     }
-    val _title: MutableLiveData<String> by lazy {
-        MutableLiveData<String>()
+    val _title: MutableLiveData<String?> by lazy {
+        MutableLiveData<String?>()
     }
 
     //feeds on 7 days
@@ -60,8 +60,13 @@ class MainViewModel() : ViewModel() {
     fun getPicOfDayFromDB(context: Context){
         viewModelScope.launch(Dispatchers.IO) {
            var response =  myRepositoryImp.getPictureOfDayDB(context)
-            _imageURL.postValue(response.url)
-            _title.postValue(response.title)
+            if(response == null){
+                _imageURL.postValue(null)
+                _title.postValue(null)
+            }else {
+                _imageURL.postValue(response.url)
+                _title.postValue(response.title)
+            }
         }
     }
 

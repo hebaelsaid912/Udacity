@@ -25,8 +25,12 @@ class AsteroidRepositoryImp{
     suspend fun insertPictureOfDayDB(context: Context, pictureOfDay: PictureOfDay){
         AsteroidDataBase.getDatabase(context).asteroidDao().insertPictureOfDay(pictureOfDay)
     }
-    suspend fun getPictureOfDayDB(context: Context): PictureOfDay {
-        return AsteroidDataBase.getDatabase(context).asteroidDao().getAllPictureOfDay.last()
+    suspend fun getPictureOfDayDB(context: Context): PictureOfDay? {
+        var list = AsteroidDataBase.getDatabase(context).asteroidDao().getAllPictureOfDay
+        if(list.isEmpty()){
+            return null
+        }
+        return list.last()
     }
     suspend fun insertAsteroidDB(context: Context, asteroidModel: AsteroidModel){
         AsteroidDataBase.getDatabase(context).asteroidDao().insertAsteroid(asteroidModel)
