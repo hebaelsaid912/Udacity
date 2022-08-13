@@ -7,9 +7,6 @@
         <variable
             name="viewModel"
             type="com.udacity.asteroidradar.presentation.ui.main.MainViewModel" />
-        <variable
-            name="imageOfTheDay"
-            type="com.udacity.asteroidradar.model.local.entities.PictureOfDay" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:adjustViewBounds="true"
-                app:asteroidImageOfTheDayContentDescription="@{imageOfTheDay.title}"
+                app:asteroidImageOfTheDayContentDescription="@{viewModel._title}"
                 android:scaleType="centerCrop"
                 app:srcCompat="@drawable/placeholder_picture_of_day"/>
 
@@ -51,6 +48,7 @@
             android:id="@+id/asteroid_recycler"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:importantForAccessibility="yes"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

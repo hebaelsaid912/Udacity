@@ -5,7 +5,7 @@
 
     <data>
         <variable
-            name="asteroid"
+            name="asteroidModel"
             type="com.udacity.asteroidradar.model.local.entities.AsteroidModel" />
     </data>
 
@@ -13,7 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/app_background"
-        android:padding="10dp">
+        android:padding="10dp"
+        android:importantForAccessibility="yes">
 
         <TextView
             android:id="@+id/asteroid_num"
@@ -42,7 +43,7 @@
             android:layout_height="wrap_content"
             tools:src="@drawable/ic_status_normal"
             android:textColor="@color/default_text_color"
-            app:asteroidImageIsHazardousContentDescription="@{asteroid.potentiallyHazardous}"
+            app:asteroidImageIsHazardousContentDescription="@{asteroidModel.potentiallyHazardous}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/asteroid_num" />

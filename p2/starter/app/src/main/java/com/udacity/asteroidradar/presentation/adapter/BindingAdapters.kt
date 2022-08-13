@@ -1,11 +1,12 @@
 package com.udacity.asteroidradar.presentation.adapter
 
+import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.udacity.asteroidradar.R
 
-@BindingAdapter("statusIcon")
+@BindingAdapter("asteroidImageStatusIcon")
 fun bindAsteroidStatusImage(imageView: ImageView, isHazardous: Boolean) {
     if (isHazardous) {
         imageView.setImageResource(R.drawable.ic_status_potentially_hazardous)
@@ -28,13 +29,18 @@ fun bindPotentiallyHazardousImageContentDescription(imageView: ImageView, isHaza
 
 @BindingAdapter("asteroidImageOfTheDayContentDescription")
 fun bindImageOfTheDayContentDescription(imageView: ImageView, imageTitle: String?) {
-    imageView.contentDescription =
-        imageView.context.getString(R.string.nasa_picture_of_day_content_description_format) + imageTitle
+    imageView.contentDescription = "Image of the Day is $imageTitle "
 }
 
 @BindingAdapter("asteroidImageIsHazardousContentDescription")
-fun bindImageIsHazardousContentDescription(imageView: ImageView, string: Boolean) {
-    imageView.contentDescription = imageView.context.getString(R.string.is_hazardous_img_desc)
+fun bindImageIsHazardousContentDescription(imageView: ImageView, isHazardous: Boolean) {
+    Log.d("BindingAdapter", "bindImageIsHazardousContentDescription: isHazardous: $isHazardous")
+    if (isHazardous) {
+        imageView.contentDescription = imageView.context.getString(R.string.is_hazardous_img_desc)
+    } else {
+        imageView.contentDescription =
+            imageView.context.getString(R.string.not_hazardous_asteroid_image)
+    }
 }
 
 @BindingAdapter("asteroidImageHelperContentDescription")
