@@ -9,35 +9,51 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
+import android.widget.RadioButton
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
-
+private const val TAG = "MainActivity"
 class MainActivity : AppCompatActivity() {
-
-    private var downloadID: Long = 0
-
-    private lateinit var notificationManager: NotificationManager
-    private lateinit var pendingIntent: PendingIntent
-    private lateinit var action: NotificationCompat.Action
+    private var downloadID: MutableLiveData<Long> = MutableLiveData()
+    private lateinit var sendNotification: Notification
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
-
+        sendNotification = Notification(context = this)
         registerReceiver(receiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
 
         custom_button.setOnClickListener {
-            download()
+            if(radio_1.isChecked || radio_2.isChecked || radio_3.isChecked) {
+                custom_button.isClickable = true
+                download()
+            }else{
+                Toast.makeText(this,"Please Select The File To Download",Toast.LENGTH_LONG).show()
+                custom_button.clearAnimation()
+            }
         }
+        downloadID.observe(this,Observer {
+            if (radio_1.isChecked)
+            sendNotification.createAcceptedNotification(downloadID.value!!.toInt(), radioName = radio_1.text.toString(), status = true)
+            if (radio_2.isChecked)
+            sendNotification.createAcceptedNotification(downloadID.value!!.toInt(), radioName = radio_2.text.toString(), status = false)
+            if (radio_2.isChecked)
+            sendNotification.createAcceptedNotification(downloadID.value!!.toInt(), radioName = radio_2.text.toString(), status = true)
+        })
     }
 
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             val id = intent?.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
+            Log.d(TAG, "onReceive: id: $id ")
         }
     }
 
@@ -51,14 +67,15 @@ class MainActivity : AppCompatActivity() {
                 .setAllowedOverRoaming(true)
 
         val downloadManager = getSystemService(DOWNLOAD_SERVICE) as DownloadManager
-        downloadID =
+        downloadID.value =
             downloadManager.enqueue(request)// enqueue puts the download request in the queue.
+
     }
 
     companion object {
         private const val URL =
             "https://github.com/udacity/nd940-c3-advanced-android-programming-project-starter/archive/master.zip"
-        private const val CHANNEL_ID = "channelId"
+
     }
 
 }
