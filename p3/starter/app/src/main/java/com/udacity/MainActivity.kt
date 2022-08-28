@@ -48,8 +48,8 @@ class MainActivity : AppCompatActivity() {
             sendNotification.createAcceptedNotification(requestID.value!!.toInt(), radioName = radio_1.text.toString(), status = true)
             if (radio_2.isChecked)
             sendNotification.createAcceptedNotification(requestID.value!!.toInt(), radioName = radio_2.text.toString(), status = false)
-            if (radio_2.isChecked)
-            sendNotification.createAcceptedNotification(requestID.value!!.toInt(), radioName = radio_2.text.toString(), status = true)
+            if (radio_3.isChecked)
+            sendNotification.createAcceptedNotification(requestID.value!!.toInt(), radioName = radio_3.text.toString(), status = true)
         })
     }
 
