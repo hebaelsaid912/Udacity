@@ -42,7 +42,7 @@ class Notification(private val context: Context){
             getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
         }
 
-        notify = NotificationCompat.Builder(context, 1.toString())
+        notify = NotificationCompat.Builder(context, CHANNEL_ID)
             .setContentTitle(context.getString(R.string.app_name))
             .setContentText("File DownLoad Successfully")
             .setSmallIcon(R.drawable.ic_assistant_black_24dp)

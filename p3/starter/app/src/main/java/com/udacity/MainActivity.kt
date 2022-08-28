@@ -21,7 +21,8 @@ import kotlinx.android.synthetic.main.content_main.*
 
 private const val TAG = "MainActivity"
 class MainActivity : AppCompatActivity() {
-    private var downloadID: MutableLiveData<Long> = MutableLiveData()
+    //private var downloadID: MutableLiveData<Long> = MutableLiveData()
+    private var requestID: MutableLiveData<Long> = MutableLiveData()
     private lateinit var sendNotification: Notification
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,13 +41,15 @@ class MainActivity : AppCompatActivity() {
                 custom_button.clearAnimation()
             }
         }
-        downloadID.observe(this,Observer {
+        requestID.observe(this,Observer {
+            Log.d(TAG, "onCreate: on requestID observe")
+            Log.d(TAG, "onCreate: on requestID observe: requestID.value ${requestID.value}")
             if (radio_1.isChecked)
-            sendNotification.createAcceptedNotification(downloadID.value!!.toInt(), radioName = radio_1.text.toString(), status = true)
+            sendNotification.createAcceptedNotification(requestID.value!!.toInt(), radioName = radio_1.text.toString(), status = true)
             if (radio_2.isChecked)
-            sendNotification.createAcceptedNotification(downloadID.value!!.toInt(), radioName = radio_2.text.toString(), status = false)
+            sendNotification.createAcceptedNotification(requestID.value!!.toInt(), radioName = radio_2.text.toString(), status = false)
             if (radio_2.isChecked)
-            sendNotification.createAcceptedNotification(downloadID.value!!.toInt(), radioName = radio_2.text.toString(), status = true)
+            sendNotification.createAcceptedNotification(requestID.value!!.toInt(), radioName = radio_2.text.toString(), status = true)
         })
     }
 
@@ -54,6 +57,7 @@ class MainActivity : AppCompatActivity() {
         override fun onReceive(context: Context?, intent: Intent?) {
             val id = intent?.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
             Log.d(TAG, "onReceive: id: $id ")
+            requestID.value = id
         }
     }
 
@@ -67,7 +71,7 @@ class MainActivity : AppCompatActivity() {
                 .setAllowedOverRoaming(true)
 
         val downloadManager = getSystemService(DOWNLOAD_SERVICE) as DownloadManager
-        downloadID.value =
+        val downloadID =
             downloadManager.enqueue(request)// enqueue puts the download request in the queue.
 
     }
