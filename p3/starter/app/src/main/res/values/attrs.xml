@@ -3,5 +3,6 @@
     <declare-styleable name="LoadingButton">
         <attr name="btnBgColor" format="integer" />
         <attr name="btnTxtColor" format="integer" />
+        <attr name="btnCircleColor" format="integer" />
     </declare-styleable>
 </resources>

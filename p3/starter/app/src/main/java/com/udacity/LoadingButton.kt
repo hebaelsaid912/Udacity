@@ -1,11 +1,12 @@
 package com.udacity
 
+import android.R.attr.*
 import android.animation.AnimatorInflater
 import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.RectF
 import android.graphics.Typeface
 import android.util.AttributeSet
 import android.util.Log
@@ -21,6 +22,8 @@ class LoadingButton @JvmOverloads constructor(
     private var widthSize = 0
     private var heightSize = 0
     private var btnBgColor: Int? = null
+    private var btnLoadingBgColor: Int? = null
+    private var btnCircleColor: Int? = null
     private var btnTxtColor: Int? = null
     private var loadingValue: Double = 0.0
     private var valueAnimator = ValueAnimator()
@@ -72,39 +75,52 @@ class LoadingButton @JvmOverloads constructor(
                 R.styleable.LoadingButton_btnBgColor,
                 ContextCompat.getColor(context, R.color.colorPrimary)
             )
+            btnLoadingBgColor = attr.getColor(
+                R.styleable.LoadingButton_btnBgColor,
+                ContextCompat.getColor(context, R.color.colorPrimaryDark)
+            )
+            btnCircleColor = attr.getColor(
+                R.styleable.LoadingButton_btnCircleColor,
+                ContextCompat.getColor(context, R.color.colorAccent)
+            )
 
         } finally {
             attr.recycle()
         }
     }
 
-    private val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+    private val linearPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.FILL
         textAlign = Paint.Align.CENTER
-        textSize = 55.0f
+        textSize = 45.0f
         typeface = Typeface.create("", Typeface.BOLD)
+    }
+    private val circlePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        style = Paint.Style.FILL
     }
 
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
-        paint.strokeWidth = 0f
-        paint.color = btnBgColor!!
-        canvas!!.drawRect(0f, 0f, width.toFloat(), height.toFloat(), paint)
-
+        linearPaint.strokeWidth = 0f
+        linearPaint.color = btnBgColor!!
+        circlePaint.color = btnBgColor!!
+        canvas!!.drawRect(0f, 0f, width.toFloat(), height.toFloat(), linearPaint)
+       // canvas.drawCircle((widthSize/2).toFloat()+200, (heightSize/2).toFloat(), 50f, circlePaint)
         if (buttonState == ButtonState.Loading) {
-            paint.color = Color.parseColor("#004349")
+            linearPaint.color = btnLoadingBgColor!!
+            circlePaint.color = btnCircleColor!!
             canvas.drawRect(
-                0f, 0f,
-                (width * (loadingValue / 100)).toFloat(), height.toFloat(), paint
-            )
+                0f, 0f, (width * (loadingValue / 100)).toFloat(), height.toFloat(), linearPaint)
+            canvas.drawArc(RectF((widthSize/2).toFloat()+150,(heightSize/2).toFloat()-50,(widthSize/2).toFloat()+250,(heightSize/2).toFloat()+50),
+                 0f,loadingValue.toFloat()*4, true, circlePaint)
         }
         val buttonText = if (buttonState == ButtonState.Loading)
             resources.getString(R.string.button_loading)
         else resources.getString(R.string.button_name)
 
-        paint.color = btnTxtColor!!
-        canvas.drawText(buttonText, (width / 2).toFloat(), ((height + 30) / 2).toFloat(), paint)
+        linearPaint.color = btnTxtColor!!
+        canvas.drawText(buttonText, (width / 2).toFloat(), ((height + 30) / 2).toFloat(), linearPaint)
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -133,7 +149,6 @@ class LoadingButton @JvmOverloads constructor(
         if (buttonState == ButtonState.Completed)
             buttonState = ButtonState.Loading
         valueAnimator.start()
-
         return true
     }
 }
