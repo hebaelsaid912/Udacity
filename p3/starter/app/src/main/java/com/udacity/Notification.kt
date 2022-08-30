@@ -47,7 +47,9 @@ class Notification(private val context: Context){
             .setContentText("File DownLoad Successfully")
             .setSmallIcon(R.drawable.ic_assistant_black_24dp)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
-            .setContentIntent(pendingIntent)
+           // .setContentIntent(pendingIntent)
+            .addAction(R.drawable.abc_vector_test, "Check the status",
+             pendingIntent)
             .build()
 
 
