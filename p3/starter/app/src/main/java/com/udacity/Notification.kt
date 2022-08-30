@@ -48,8 +48,7 @@ class Notification(private val context: Context){
             .setSmallIcon(R.drawable.ic_assistant_black_24dp)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
            // .setContentIntent(pendingIntent)
-            .addAction(R.drawable.abc_vector_test, "Check the status",
-             pendingIntent)
+            .addAction(R.drawable.abc_vector_test, "Check the status", pendingIntent)
             .build()
 
 
